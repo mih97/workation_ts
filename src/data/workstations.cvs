@@ -1,0 +1,11 @@
+employeeName,originCountry,destinationCountry,workingDays,startDate,endDate,risk
+Alice,DE,US,30,2025-09-01,2025-09-30,low
+Bob,FR,UK,15,2025-09-05,2025-09-20,medium
+Charlie,ES,PT,10,2025-09-03,2025-09-13,low
+Diana,IT,DE,45,2025-08-20,2025-10-04,high
+Ethan,NL,SE,25,2025-09-10,2025-10-05,medium
+Fiona,PL,CZ,12,2025-09-07,2025-09-19,low
+George,RO,HU,20,2025-09-02,2025-09-22,medium
+Hannah,UK,IE,18,2025-09-15,2025-10-03,low
+Ivan,GR,DE,40,2025-09-01,2025-10-11,high
+Julia,FI,NO,28,2025-09-12,2025-10-10,medium
