@@ -1,28 +1,34 @@
 export class HttpError extends Error {
-  constructor(
-    public readonly status: number,
-    public readonly message: string,
-    public readonly details?: unknown
-  ) {
+  constructor(public status: number, public code: string, message: string) {
     super(message);
-    this.name = this.constructor.name;
+    Object.setPrototypeOf(this, new.target.prototype);
   }
 }
 
 export class NotFoundError extends HttpError {
-  constructor(entity: string, id?: number) {
-    super(404, `${entity}${id ? ` with id=${id}` : ""} not found`);
+  constructor(resource: string, id?: number | string) {
+    super(
+      404,
+      "NOT_FOUND",
+      id ? `${resource} with id ${id} not found` : `${resource} not found`
+    );
   }
 }
 
 export class BadRequestError extends HttpError {
-  constructor(message = "Bad request", details?: unknown) {
-    super(400, message, details);
+  constructor(message = "Bad request") {
+    super(400, "BAD_REQUEST", message);
   }
 }
 
 export class UnauthorizedError extends HttpError {
   constructor(message = "Unauthorized") {
-    super(401, message);
+    super(401, "UNAUTHORIZED", message);
+  }
+}
+
+export class ForbiddenError extends HttpError {
+  constructor(message = "Forbidden") {
+    super(403, "FORBIDDEN", message);
   }
 }
