@@ -1,4 +1,3 @@
-import { Repository } from 'typeorm';
 import { AppDataSource } from '../config/data-source';
 import { Router } from 'express';
 import { validateBody } from '../middlewares/validate';
@@ -9,8 +8,7 @@ import { CreateWorkstationDto } from '../dto/workstationDto/create-workstation.d
 import { UpdateWorkstationDto } from '../dto/workstationDto/update-workstation.dto';
 import { WorkstationRepository } from '../repositories/workstation.repository';
 
-const typeormRepo:Repository<Workstation> = AppDataSource.getRepository(Workstation);
-const workstationRepository: WorkstationRepository = new WorkstationRepository(typeormRepo);
+const workstationRepository: WorkstationRepository = new WorkstationRepository(AppDataSource.getRepository(Workstation));
 const workstationService = new WorkstationService(workstationRepository);
 const workstationController = new WorkstationController(workstationService)
 

@@ -1,6 +1,6 @@
+import { env } from "./config/env";
 import app from "./app";
 import { AppDataSource } from "./config/data-source";
-import { env } from "./config/env";
 
 (async (): Promise<void> => {
   await AppDataSource.initialize();
