@@ -5,6 +5,7 @@ import { RegisterDto } from '../dto/auth/register.dto';
 import { AuthService } from '../services/auth.service';
 import { User } from '../models/user.entity';
 import { LoginDto } from '../dto/auth/login.dto';
+import { UserResponseDto } from '../dto/auth/user.response.dto';
 
 export class AuthController {
   constructor(private readonly svc: AuthService) {}
@@ -13,13 +14,13 @@ export class AuthController {
     validateBody(RegisterDto),
     async (
       req: Request<{}, User, RegisterDto>,
-      res: Response<User>,
+      res: Response<UserResponseDto>,
       next: NextFunction
     ): Promise<void> => {
       try {
         const dto: RegisterDto = req.body;
         const entity: RegisterDto = plainToInstance(RegisterDto, dto);
-        const user: User = await this.svc.register(entity);
+        const user: UserResponseDto = await this.svc.register(entity);
         res.status(201).json(user);
       } catch (err) {
         next(err);

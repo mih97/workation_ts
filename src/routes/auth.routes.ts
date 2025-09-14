@@ -1,9 +1,9 @@
 import { Router } from "express";
 import { UserRepository } from '../repositories/user.repository';
-import { AppDataSource } from '../config/data-source';
-import { User } from '../models/user.entity';
 import { AuthService } from '../services/auth.service';
 import { AuthController } from '../controller/auth.controller';
+import { AppDataSource } from '../config/data-source';
+import { User } from '../models/user.entity';
 
 const repo = new UserRepository(AppDataSource.getRepository(User));
 const service = new AuthService(repo);

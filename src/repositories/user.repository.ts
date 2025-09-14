@@ -1,24 +1,29 @@
 import { Repository } from "typeorm";
 import { User } from '../models/user.entity';
-import { NotFoundError } from '../core/httpErrors';
 
 export class UserRepository {
-  constructor(private readonly repo: Repository<User>) {}
 
-  async findById(id: number): Promise<User> {
-    const entity = await this.repo.findOneBy({ id });
-    if (!entity) throw new NotFoundError("User", id);
-    return entity;
+  constructor(private readonly repo: Repository<User>) {
   }
 
-  async findByEmail(email: string): Promise<User> {
-    const entity = await this.repo.findOneBy({ email });
-    if (!entity) throw new Error("Invalid credentials");
-    return entity;
-  }
-
-  async create(user: Partial<User>): Promise<User> {
-    const entity = this.repo.create(user);
+  async create(data: Partial<User>): Promise<User> {
+    const entity: User = this.repo.create(data);
     return this.repo.save(entity);
+  }
+
+  async findByEmail(email: string): Promise<User | null> {
+    return this.repo.findOne({ where: { email } });
+  }
+
+  async findById(id: number): Promise<User | null> {
+    return this.repo.findOne({ where: { id } });
+  }
+
+  async save(user: User): Promise<User> {
+    return this.repo.save(user);
+  }
+
+  async delete(id: number): Promise<void> {
+    await this.repo.delete(id);
   }
 }
