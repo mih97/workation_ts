@@ -1,5 +1,5 @@
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
+import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 import { UserRepository } from '../repositories/user.repository';
 import { RegisterDto } from '../dto/auth/register.dto';
 import { BadRequestError, UnauthorizedError } from '../core/httpErrors';
@@ -8,6 +8,7 @@ import { env } from '../config/env';
 import { User } from '../models/user.entity';
 import { UserResponseDto } from '../dto/auth/user.response.dto';
 import { QueryFailedError } from 'typeorm';
+import { Role } from '../core/roles';
 
 export interface AuthTokens {
   accessToken: string;
@@ -24,7 +25,7 @@ export class AuthService {
       const user = await this.userRepo.create({
         email: dto.email,
         passwordHash,
-        role: "user",
+        role: Role.USER,
       });
 
       return this.toResponse(user);
