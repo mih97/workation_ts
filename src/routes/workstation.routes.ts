@@ -3,7 +3,7 @@ import { Router } from 'express';
 import { validateBody } from '../middlewares/validate';
 import { Workstation } from '../models/workstation.entity';
 import { WorkstationService } from '../services/workstation.service';
-import { WorkstationController } from '../controller/WorkstationController';
+import { WorkstationController } from '../controller/workstation.controller';
 import { CreateWorkstationDto } from '../dto/workstationDto/create-workstation.dto';
 import { UpdateWorkstationDto } from '../dto/workstationDto/update-workstation.dto';
 import { WorkstationRepository } from '../repositories/workstation.repository';

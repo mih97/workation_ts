@@ -1,6 +1,5 @@
-import { Repository } from 'typeorm';
-import { Workstation } from '../models/workstation.entity';
-import { NotFoundError } from '../core/httpErrors';
+import { DeleteResult, Repository } from 'typeorm';
+import { Workstation } from "../models/workstation.entity";
 
 export class WorkstationRepository {
   constructor(private readonly repo: Repository<Workstation>) {}
@@ -9,25 +8,21 @@ export class WorkstationRepository {
     return this.repo.find();
   }
 
-  async findById(id: number): Promise<Workstation> {
-    const entity: Workstation | null = await this.repo.findOneBy({ id });
-    if (!entity) throw new NotFoundError("Workstation", id);
-    return entity;
+  async findById(id: number): Promise<Workstation | null> {
+    return this.repo.findOneBy({ id });
   }
 
-  async create(entity: Workstation): Promise<Workstation> {
-    const newEntity: Workstation = this.repo.create(entity);
-    return this.repo.save(newEntity);
-  }
-
-  async update(id: number, partial: Partial<Workstation>): Promise<Workstation> {
-    const entity: Workstation = await this.findById(id);
-    Object.assign(entity, partial);
+  async create(data: Partial<Workstation>): Promise<Workstation> {
+    const entity:Workstation = this.repo.create(data);
     return this.repo.save(entity);
   }
 
-  async delete(id: number): Promise<void> {
-    const result = await this.repo.delete(id);
-    if (result.affected === 0) throw new NotFoundError("Workstation", id);
+  async update(entity: Workstation): Promise<Workstation> {
+    return this.repo.save(entity);
+  }
+
+  async delete(id: number): Promise<number> {
+    const result: DeleteResult = await this.repo.delete(id);
+    return result.affected ?? 0; // service will decide if 0 means NotFound
   }
 }

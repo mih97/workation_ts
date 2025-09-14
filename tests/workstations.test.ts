@@ -10,7 +10,7 @@ import { validateBody } from "../src/middlewares/validate";
 import { errorHandler } from "../src/middlewares/errorHandler";
 import { WorkstationRepository } from '../src/repositories/workstation.repository';
 import { WorkstationService } from '../src/services/workstation.service';
-import { WorkstationController } from '../src/controller/WorkstationController';
+import { WorkstationController } from '../src/controller/workstation.controller';
 import { CreateWorkstationDto } from '../src/dto/workstationDto/create-workstation.dto';
 import { UpdateWorkstationDto } from '../src/dto/workstationDto/update-workstation.dto';
 

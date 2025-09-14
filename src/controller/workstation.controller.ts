@@ -17,7 +17,7 @@ export class WorkstationController {
     next: NextFunction
   ): Promise<void> => {
     try {
-      const entities: Workstation[] = await this.svc.list();
+      const entities: Workstation[] = await this.svc.getAll();
       const response: WorkstationResponseDto[] = plainToInstance(WorkstationResponseDto, entities, {
         excludeExtraneousValues: true,
       });
@@ -34,7 +34,7 @@ export class WorkstationController {
   ): Promise<void> => {
     try {
       const id = Number(req.params.id);
-      const entity: Workstation = await this.svc.get(id);
+      const entity: Workstation = await this.svc.getById(id);
       const response = plainToInstance(WorkstationResponseDto, entity, {
         excludeExtraneousValues: true,
       });
@@ -97,7 +97,7 @@ export class WorkstationController {
   ): Promise<void> => {
     try {
       const id = Number(req.params.id);
-      await this.svc.remove(id);
+      await this.svc.delete(id);
       res.status(204).send();
     } catch (err) {
       next(err);
