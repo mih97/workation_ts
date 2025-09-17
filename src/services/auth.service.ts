@@ -1,5 +1,6 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+
 import { UserRepository } from '../repositories/user.repository';
 import { RegisterDto } from '../dto/auth/register.dto';
 import { BadRequestError, UnauthorizedError } from '../core/httpErrors';
@@ -7,8 +8,8 @@ import { LoginDto } from '../dto/auth/login.dto';
 import { env } from '../config/env';
 import { User } from '../models/user.entity';
 import { UserResponseDto } from '../dto/auth/user.response.dto';
-import { QueryFailedError } from 'typeorm';
 import { Role } from '../core/roles';
+import { isPgUniqueViolation } from '../core/db.error';
 
 export interface AuthTokens {
   accessToken: string;
@@ -20,23 +21,18 @@ export class AuthService {
 
   async register(dto: RegisterDto): Promise<UserResponseDto> {
     const passwordHash = await bcrypt.hash(dto.password, 10);
-
     try {
       const user = await this.userRepo.create({
         email: dto.email,
         passwordHash,
         role: Role.USER,
       });
-
       return this.toResponse(user);
     } catch (err: unknown) {
-      if (err instanceof QueryFailedError) {
-        const driverErr = (err as any).driverError;
-        if (driverErr?.code === "23505") {
-          throw new BadRequestError("Email already in use.");
-        }
+      if (isPgUniqueViolation(err)) {
+        throw new BadRequestError("Email already in use.");
       }
-      throw err; // rethrow anything else
+      throw err;
     }
   }
 

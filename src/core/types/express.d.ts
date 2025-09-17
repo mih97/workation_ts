@@ -9,7 +9,10 @@ declare global {
     }
 
     interface Request {
-      user?: UserPayload;
+      user?: {
+        sub: number;
+        role: string;
+      };
     }
   }
 }

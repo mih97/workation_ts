@@ -10,7 +10,9 @@ export class NotFoundError extends HttpError {
     super(
       404,
       "NOT_FOUND",
-      id ? `${resource} with id ${id} not found` : `${resource} not found`
+      id !== undefined
+        ? `${resource} with id ${id} not found`
+        : `${resource} not found`
     );
   }
 }

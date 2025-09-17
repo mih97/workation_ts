@@ -1,5 +1,6 @@
-import { AppDataSource } from '../config/data-source';
 import { Router } from 'express';
+
+import { AppDataSource } from '../config/data-source';
 import { validateBody } from '../middlewares/validate';
 import { Workstation } from '../models/workstation.entity';
 import { WorkstationService } from '../services/workstation.service';

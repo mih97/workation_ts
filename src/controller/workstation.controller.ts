@@ -1,10 +1,11 @@
 import { Request, Response, NextFunction } from "express";
+import { plainToInstance } from 'class-transformer';
+
 import { WorkstationService } from '../services/workstation.service';
 import { WorkstationResponseDto } from '../dto/workstationDto/response-workstation.dto';
 import { CreateWorkstationDto } from '../dto/workstationDto/create-workstation.dto';
 import { UpdateWorkstationDto } from '../dto/workstationDto/update-workstation.dto';
 import { Workstation } from '../models/workstation.entity';
-import { plainToInstance } from 'class-transformer';
 import { validateBody } from '../middlewares/validate';
 
 

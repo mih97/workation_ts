@@ -1,4 +1,5 @@
 import { Router } from "express";
+
 import { UserRepository } from '../repositories/user.repository';
 import { AuthService } from '../services/auth.service';
 import { AuthController } from '../controller/auth.controller';

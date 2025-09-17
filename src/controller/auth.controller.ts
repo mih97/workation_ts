@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { plainToInstance } from "class-transformer"
+
 import { validateBody } from '../middlewares/validate';
 import { RegisterDto } from '../dto/auth/register.dto';
 import { AuthService } from '../services/auth.service';

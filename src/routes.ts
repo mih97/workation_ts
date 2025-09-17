@@ -1,4 +1,5 @@
 import { Router } from "express";
+
 import { workstationRouter } from './routes/workstation.routes';
 import { authRouter } from './routes/auth.routes';
 

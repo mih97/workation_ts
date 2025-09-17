@@ -1,18 +1,25 @@
 import { Request, Response, NextFunction } from "express";
+
 import { HttpError } from "../core/httpErrors";
 
-export function errorHandler(err: unknown, _req: Request, res: Response, _next: NextFunction) {
+
+export function errorHandler(
+  err: unknown,
+  _req: Request,
+  res: Response,
+  _next: NextFunction
+): void {
   if (err instanceof HttpError) {
-    return res.status(err.status).json({
+    res.status(err.status).json({
       error: err.message,
       code: err.code,
     });
+    return;
   }
 
-  // Validation errors already handled in validateBody, no need to repeat
-
   console.error("Unexpected error:", err);
-  return res.status(500).json({
+
+  res.status(500).json({
     error: "Internal Server Error",
     code: "INTERNAL_SERVER_ERROR",
   });

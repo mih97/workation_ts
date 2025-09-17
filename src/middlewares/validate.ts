@@ -22,15 +22,16 @@ function formatValidationErrors(errors: ValidationError[]): { field: string; cod
 }
 
 export function validateBody<T extends object>(dtoClass: new () => T) {
-  return async (req: Request, res: Response, next: NextFunction) => {
+  return async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     const dto = plainToInstance(dtoClass, req.body);
     const errors = await validate(dto, { whitelist: true, forbidNonWhitelisted: true });
 
     if (errors.length > 0) {
-      return res.status(400).json({
+      res.status(400).json({
         error: "Validation failed",
         details: formatValidationErrors(errors),
       });
+      return;
     }
 
     req.body = dto;
