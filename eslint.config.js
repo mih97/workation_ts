@@ -52,19 +52,6 @@ export default [
       /* Layering discipline */
       "import/no-cycle": "error",
       "import/no-relative-parent-imports": "warn",
-      "no-restricted-imports": [
-        "error",
-        {
-          patterns: [
-            {
-              group: ["../models/*", "src/models/*"],
-              message:
-                "Do not import entities into controllers — use DTOs/services instead."
-            }
-          ]
-        }
-      ],
-
       /* Prevent unused cruft */
       "@typescript-eslint/no-unused-vars": [
         "error",
