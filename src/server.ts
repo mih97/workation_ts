@@ -8,7 +8,5 @@ await (async (): Promise<void> => {
   if (env.NODE_ENV !== "production") {
     await AppDataSource.runMigrations();
   }
-  app.listen(env.PORT, () => {
-
-  });
+  app.listen();
 })();
