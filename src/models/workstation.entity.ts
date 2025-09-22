@@ -1,29 +1,29 @@
 import { Entity, PrimaryGeneratedColumn, Column } from "typeorm"
 
+
 @Entity({ name: "workstations" })
 export class Workstation {
   @PrimaryGeneratedColumn()
   id!: number;
 
-
-  @Column({ type: "varchar", length: 120 })
+  @Column({ name: "employee_name", type: "text" })
   employeeName!: string;
 
-  @Column({ type: "varchar", length: 120 })
+  @Column({ name: "origin_country", type: "text" })
   originCountry!: string;
 
-  @Column({ type: "varchar", length: 120 })
+  @Column({ name: "destination_country", type: "text" })
   destinationCountry!: string;
 
-  @Column({ type: "int", default: 0 })
+  @Column({ name: "working_days", type: "int", default: 0 })
   workingDays!: number;
 
-  @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
+  @Column({ name: "start_date", type: "timestamptz", default: () => "CURRENT_TIMESTAMP" })
   startDate!: Date;
 
-  @Column({ type: "timestamp", default: () => "CURRENT_TIMESTAMP" })
+  @Column({ name: "end_date", type: "timestamptz", default: () => "CURRENT_TIMESTAMP" })
   endDate!: Date;
 
-  @Column({ type: "varchar", length: 50 })
+  @Column({ type: "text" })
   risk!: string;
 }

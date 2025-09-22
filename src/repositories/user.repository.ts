@@ -16,6 +16,14 @@ export class UserRepository {
     return this.repo.findOne({ where: { email } });
   }
 
+  async findByInviteToken(token: string): Promise<User | null> {
+    return this.repo.findOne({ where: { inviteToken: token } });
+  }
+
+  async findByResetToken(token: string): Promise<User | null> {
+    return this.repo.findOneBy({ resetToken: token });
+  }
+
   async findById(id: number): Promise<User | null> {
     return this.repo.findOne({ where: { id } });
   }
