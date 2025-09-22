@@ -2,9 +2,9 @@ import { Request, Response, NextFunction } from "express";
 import { plainToInstance } from 'class-transformer';
 
 import { WorkstationService } from '../services/workstation.service';
-import { WorkstationResponseDto } from '../dto/workstationDto/response-workstation.dto';
-import { CreateWorkstationDto } from '../dto/workstationDto/create-workstation.dto';
-import { UpdateWorkstationDto } from '../dto/workstationDto/update-workstation.dto';
+import { WorkstationResponseDto } from '../dto/workstation/response-workstation.dto';
+import { CreateWorkstationDto } from '../dto/workstation/create-workstation.dto';
+import { UpdateWorkstationDto } from '../dto/workstation/update-workstation.dto';
 import { Workstation } from '../models/workstation.entity';
 import { validateBody } from '../middlewares/validate';
 

@@ -8,5 +8,7 @@ await (async (): Promise<void> => {
   if (env.NODE_ENV !== "production") {
     await AppDataSource.runMigrations();
   }
-  app.listen();
+  app.listen(3000, () => {
+    console.log("Server running on port 3000");
+  });
 })();

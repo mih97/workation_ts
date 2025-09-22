@@ -10,6 +10,7 @@ export interface PublicRoute {
 export const PUBLIC_ROUTES: PublicRoute[] = [
   { path: "/auth/login", method: "POST" },
   { path: "/auth/register", method: "POST" },
-  // example: allow read-only public access
-  // { path: "/workstations", method: "GET" }
+  { path: "/users/activate", method: "POST" },
+  { path: "/users/request-reset", method: "POST" },
+  { path: "/users/reset-password", method: "POST" },
 ];

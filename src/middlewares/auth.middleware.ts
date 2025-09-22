@@ -6,28 +6,24 @@ import { Role } from '../core/roles';
 import { PUBLIC_ROUTES } from '../config/security.config';
 
 export function authMiddleware(req: Request, _res: Response, next: NextFunction): void {
-  const isPublic:boolean = PUBLIC_ROUTES.some(
-    route => route.path === req.path && route.method === req.method
+  const fullPath = `${req.baseUrl}${req.path}`; // e.g. "/users/invite" or "/auth/register"
+
+  const isPublic = PUBLIC_ROUTES.some(
+    route => route.path === fullPath && route.method === req.method
   );
 
   if (isPublic) {
     return next();
   }
-  const header = req.headers.authorization;
-
+  const header: string | undefined = req.headers.authorization;
   if (typeof header !== "string" || !header.startsWith("Bearer ")) {
     throw new UnauthorizedError("Missing or invalid Authorization header");
   }
 
-  const token = header.split(" ")[1];
+  const token: string = header.split(" ")[1];
 
   try {
-    const payload = jwt.verify(token, process.env.JWT_SECRET!) as JwtPayload & {
-      sub: number;
-      role: string;
-    };
-
-    req.user = { sub: payload.sub, role: payload.role };
+    req.user = jwt.verify(token, process.env.JWT_SECRET!) as JwtPayload & Express.UserPayload;
     next();
   } catch {
     throw new UnauthorizedError("Invalid or expired token");
@@ -35,7 +31,7 @@ export function authMiddleware(req: Request, _res: Response, next: NextFunction)
 }
 export function authorize(...allowedRoles: Role[]) {
   return (req: Request, _res: Response, next: NextFunction): void => {
-    const user = req.user;
+    const user: Express.UserPayload | undefined = req.user;
     if (!user) {
       return next(new ForbiddenError("No authenticated user"));
     }

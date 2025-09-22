@@ -127,7 +127,7 @@ export class UserLifeCycleController {
     ): Promise<void> => {
       try {
         if (!req.user) {
-          throw new UnauthorizedError("User not authenticated");
+          return next(new UnauthorizedError("User not authenticated"));
         }
         const dto = plainToInstance(ChangePasswordDto, req.body);
         const user = await this.lifecycle.changePassword(req.user.sub, dto.oldPassword, dto.newPassword);
