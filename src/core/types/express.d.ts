@@ -3,16 +3,12 @@ import { Role } from "../core/roles";
 declare global {
   namespace Express {
     interface UserPayload {
-      id: number;
-      email: string;
+      sub: number;     // JWT subject = user id
       role: Role;
     }
 
     interface Request {
-      user?: {
-        sub: number;
-        role: string;
-      };
+      user?: UserPayload;
     }
   }
 }
